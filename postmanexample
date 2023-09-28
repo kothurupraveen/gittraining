@@ -1,0 +1,20 @@
+stage('Install npm') {
+ steps {
+ // Install Newman globally
+ sh 'sudo apt-get install -y npm'
+ }
+ }
+ stage('Install Newman') {
+ steps {
+ // Install Newman globally
+ sh 'sudo npm install -g newman'
+ }
+ }
+ stage('Run Postman Collection') {
+ steps {
+ // Run your Postman collection using Newman
+ sh 'sudo newman run collections.json'
+ }
+ }
+ }
+}
