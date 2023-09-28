@@ -1,6 +1,6 @@
 ---
 - name: Check SSH service status
-  hosts: your_target_hosts
+  hosts: ubuntu
   become: true
 
   tasks:
