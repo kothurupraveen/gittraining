@@ -1,0 +1,15 @@
+---
+- name: Check SSH service status
+  hosts: your_target_hosts
+  become: true
+
+  tasks:
+    - name: Check SSH service status
+      service:
+        name: ssh
+        state: started
+      register: ssh_service_status
+
+    - name: Print SSH service status
+      debug:
+        msg: "SSH service is {{ ssh_service_status.state }}"
