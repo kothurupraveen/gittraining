@@ -1,0 +1,85 @@
+// Declarative Pipeline
+pipeline {
+  agent any
+ triggers {
+ cron('* * * * *')
+}
+  stages {
+   stage('Example') {
+  steps {
+     echo 'Hello World'
+   }
+  }
+ }
+}
+
+
+Lab3: Post actions: The post section defines one or more additional steps that are run upon the completion of a Pipeline’s or stage’s run (depending on the location of the post section within the Pipeline). post can support any of the following postcondition blocks: always, changed, fixed, regression, aborted, failure, success, unstable, unsuccessful, and cleanup
+
+pipeline {
+agent any
+stages {
+stage('Example') {
+steps {
+echo 'Hello World'
+}
+}
+}
+post {
+always {
+echo 'I will always say Hello again!'
+}
+}
+}
+Try: replace post– > always
+
+post –>failure
+
+post –> success  and provide echo statement
+
+Try this code and provide observation:
+
+pipeline {
+agent any
+
+ parameters {
+  choice(
+   name: 'ENVIRONMENT',
+   choices: ['dev', 'qa', 'prod'],
+   description: 'Select the deployment environment'
+ )
+}
+stages {
+ stage('Build') {
+  steps {
+// Add your build steps here
+   echo "Building for ${params.ENVIRONMENT} environment"
+  }
+}
+
+ stage('Deploy') {
+  when {
+   expression {
+// You can use the 'params.ENVIRONMENT' variable to make decisions in your pipeline
+   return params.ENVIRONMENT == 'qa' || params.ENVIRONMENT == 'prod'
+  }
+}
+steps {
+// Add your deployment steps here
+  echo "Deploying to ${params.ENVIRONMENT} environment"
+  }
+}
+stage('Test') {
+  steps {
+// Add your testing steps here
+  echo "Testing in ${params.ENVIRONMENT} environment"
+ }
+}
+}
+post {
+always {
+// Add any cleanup or post-build steps here
+echo "Pipeline completed for ${params.ENVIRONMENT} environment"
+ }
+ }
+}
