@@ -11,6 +11,6 @@
         state: started
       register: ssh_service_status
 
-    - name: Print SSH service status
+    - name: Print SSH services status
       debug:
         msg: "SSH service is {{ ssh_service_status.state }}"
