@@ -1,6 +1,7 @@
 ---
 - name: Check SSH service status
-  hosts: ubuntu
+  hosts: localhost
+  connection: local
   become: true
 
   tasks:
